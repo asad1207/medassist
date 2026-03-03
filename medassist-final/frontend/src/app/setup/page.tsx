@@ -38,10 +38,6 @@ export default function SetupPage() {
   };
 
   const finishSetup = () => {
-    // // null;,
-      blood_group: blood, height, weight,
-      setupDone: true,
-    });
     toast("✅ Profile saved! Welcome to MedAssist 🎉");
     setTimeout(() => router.push("/dashboard"), 800);
   };
