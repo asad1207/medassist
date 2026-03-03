@@ -51,15 +51,6 @@ export default function SymptomsPage() {
 
   const saveHist = () => {
     if (!user || !result) return;
-    // history saved to backend automatically via symptoms/analyzeuser.id, {
-      id: crypto.randomUUID(),
-      date: new Date().toLocaleDateString("en-GB",{ day: "numeric", month: "short", year: "numeric" }),
-      symptoms: allSymptoms,
-      severity, duration,
-      risk: result.risk,
-      risk_score: result.risk_score,
-      recommendation: result.guidance,
-    });
     toast("✅ Saved to history!");
     setTimeout(() => router.push("/history"), 900);
   };
