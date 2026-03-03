@@ -12,8 +12,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Read allowed origins from env — comma-separated for multiple URLs
-# e.g. "http://localhost:3000,https://medassist.vercel.app"
 raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000")
 allowed_origins = [o.strip() for o in raw_origins.split(",")]
 

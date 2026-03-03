@@ -30,10 +30,9 @@ class UserOut(BaseModel):
     email: str
     full_name: str
     is_active: bool
-    created_at: datetime
+    created_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
 
 
 # ─── Health Profile ───────────────────────────────────────────────────────────
@@ -56,10 +55,9 @@ class HealthProfileCreate(BaseModel):
 class HealthProfileOut(HealthProfileCreate):
     id: str
     user_id: str
-    created_at: datetime
+    created_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
 
 
 # ─── Symptoms ────────────────────────────────────────────────────────────────
@@ -74,15 +72,14 @@ class SymptomCheckOut(BaseModel):
     user_id: str
     symptoms: str
     severity: int
-    duration_days: Optional[int]
-    risk_level: RiskLevel
-    risk_score: float
-    ai_recommendation: str
+    duration_days: Optional[int] = None
+    risk_level: str        # mild / moderate / emergency
+    risk_score: Optional[float] = None
+    ai_recommendation: Optional[str] = None
     ai_reviewed: bool
-    created_at: datetime
+    created_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
 
 
 # ─── Appointments ─────────────────────────────────────────────────────────────
@@ -96,12 +93,11 @@ class AppointmentCreate(BaseModel):
 class AppointmentOut(AppointmentCreate):
     id: str
     user_id: str
-    status: AppointmentStatus
-    created_at: datetime
+    status: str            # scheduled / completed / cancelled
+    created_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
 
 class AppointmentUpdate(BaseModel):
-    status: Optional[AppointmentStatus] = None
+    status: Optional[str] = None
     notes: Optional[str] = None
