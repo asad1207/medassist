@@ -4,7 +4,6 @@ import Protected from "@/components/Protected";
 import { toast } from "@/components/Toast";
 import { useAuth } from "@/hooks/useAuth";
 import { analyzeSymptoms } from "@/lib/analyze";
-import { } from "@/hooks/useStorage";
 import { useRouter } from "next/navigation";
 
 const SYMPTOM_TAGS = [
