@@ -38,9 +38,7 @@ export default function SetupPage() {
   };
 
   const finishSetup = () => {
-    // updateUser({
-      conditions, allergies, medications: meds, sleep, occupation,
-      lifestyle: [smoking, exercise, diet, alcohol].filter(Boolean),
+    // // null;,
       blood_group: blood, height, weight,
       setupDone: true,
     });

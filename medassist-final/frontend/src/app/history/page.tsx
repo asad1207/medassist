@@ -8,7 +8,7 @@ const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov
 
 export default function HistoryPage() {
   const { user } = useAuth();
-  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [history, setHistory] = useState<[]>([]);
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function HistoryPage() {
   const byMonth = MONTHS.map((m, i) => history.filter(h => h.date?.includes(m)).length);
   const maxMonth = Math.max(...byMonth, 1);
 
-  const riskBadge = (r: HistoryEntry["risk"]) => {
+  const riskBadge = (r:["risk"]) => {
     const map = { mild: "bg", moderate: "ba", emergency: "br" } as const;
     return map[r];
   };

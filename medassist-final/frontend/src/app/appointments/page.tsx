@@ -17,7 +17,7 @@ const TIME_SLOTS = ["09:00 AM","09:30 AM","10:00 AM","10:30 AM","11:00 AM","11:3
 
 export default function AppointmentsPage() {
   const { user } = useAuth();
-  const [appointments, setAppointments] = useState<AppointmentEntry[]>([]);
+  const [appointments, setAppointments] = useState<[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [specialty, setSpecialty] = useState("");
   const [doctor, setDoctor] = useState("");
@@ -31,7 +31,7 @@ export default function AppointmentsPage() {
 
   const book = () => {
     if (!date || !time) { toast("⚠️ Please select date and time slot"); return; }
-    const entry: AppointmentEntry = {
+    const entry: = {
       id: crypto.randomUUID(),
       doctor: doctor || "TBD",
       specialty, date, time, notes,
@@ -48,7 +48,7 @@ export default function AppointmentsPage() {
   const cancel = (id: string) => { updateAppointment(user!.id, id, "cancelled"); load(); toast("🗑️ Appointment cancelled"); };
   const complete = (id: string) => { updateAppointment(user!.id, id, "completed"); load(); toast("✅ Marked as completed"); };
 
-  const statusColor = (s: AppointmentEntry["status"]) => s === "scheduled" ? "bt" : s === "completed" ? "bg" : "ba";
+  const statusColor = (s:["status"]) => s === "scheduled" ? "bt" : s === "completed" ? "bg" : "ba";
   const docs = (DOCTORS as any)[specialty] || [];
 
   return (

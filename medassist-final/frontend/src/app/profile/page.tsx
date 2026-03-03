@@ -24,13 +24,13 @@ export default function ProfilePage() {
   const initials = user.full_name?.split(" ").map(w => w[0]).join("").toUpperCase().slice(0,2) || "?";
 
   const savePersonal = () => {
-    // updateUser(pForm);
+    // // null;
     setEditPersonal(false);
     toast("✅ Personal info saved!");
   };
 
   const saveMedical = () => {
-    // updateUser({ allergies: mAllerg, medications: mMeds, sleep: mSleep });
+    // // null;
     setEditMedical(false);
     toast("✅ Medical info saved!");
   };
