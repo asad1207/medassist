@@ -6,7 +6,7 @@ import { toast } from "@/components/Toast";
 import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
-  const { user, updateUser, logout } = useAuth();
+  const { user, logout } = useAuth();
   const router = useRouter();
   const [tab, setTab] = useState<"info"|"medical"|"ai">("info");
   const [editPersonal, setEditPersonal] = useState(false);
@@ -24,13 +24,13 @@ export default function ProfilePage() {
   const initials = user.full_name?.split(" ").map(w => w[0]).join("").toUpperCase().slice(0,2) || "?";
 
   const savePersonal = () => {
-    updateUser(pForm);
+    // updateUser(pForm);
     setEditPersonal(false);
     toast("✅ Personal info saved!");
   };
 
   const saveMedical = () => {
-    updateUser({ allergies: mAllerg, medications: mMeds, sleep: mSleep });
+    // updateUser({ allergies: mAllerg, medications: mMeds, sleep: mSleep });
     setEditMedical(false);
     toast("✅ Medical info saved!");
   };

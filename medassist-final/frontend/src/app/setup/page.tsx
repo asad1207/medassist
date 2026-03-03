@@ -8,7 +8,7 @@ const CONDITIONS = ["Diabetes","Hypertension","Asthma","Heart Disease","Thyroid"
 const BLOOD = ["A+","A-","B+","B-","AB+","AB-","O+","O-"];
 
 export default function SetupPage() {
-  const { user, updateUser } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [conditions, setConditions] = useState<string[]>([]);
@@ -38,7 +38,7 @@ export default function SetupPage() {
   };
 
   const finishSetup = () => {
-    updateUser({
+    // updateUser({
       conditions, allergies, medications: meds, sleep, occupation,
       lifestyle: [smoking, exercise, diet, alcohol].filter(Boolean),
       blood_group: blood, height, weight,

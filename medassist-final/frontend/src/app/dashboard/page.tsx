@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Protected from "@/components/Protected";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
-import { getHistory } from "@/hooks/useStorage";
+import { fetchHistory } from "@/hooks/useStorage";
 
 const CARDS = [
   { icon: "🔍", title: "AI Symptom Checker",    desc: "Analyze symptoms and get AI-driven health insights.",       meta: "Last used: Today",          dot: "dg", href: "/symptoms",     cta: "Check Symptoms →",   delay: ".08s" },

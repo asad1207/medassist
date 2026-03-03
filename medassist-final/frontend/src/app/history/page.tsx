@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Protected from "@/components/Protected";
 import { useAuth } from "@/hooks/useAuth";
-import { fetchHistory, HistoryEntry } from "@/hooks/useStorage";
+import { fetchHistory } from "@/hooks/useStorage";
 
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
