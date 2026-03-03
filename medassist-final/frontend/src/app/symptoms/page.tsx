@@ -4,7 +4,7 @@ import Protected from "@/components/Protected";
 import { toast } from "@/components/Toast";
 import { useAuth } from "@/hooks/useAuth";
 import { analyzeSymptoms } from "@/lib/analyze";
-import { saveHistoryEntry } from "@/hooks/useStorage";
+import { } from "@/hooks/useStorage";
 import { useRouter } from "next/navigation";
 
 const SYMPTOM_TAGS = [
@@ -52,7 +52,7 @@ export default function SymptomsPage() {
 
   const saveHist = () => {
     if (!user || !result) return;
-    // saveHistoryEntry(user.id, {
+    // history saved to backend automatically via symptoms/analyzeuser.id, {
       id: crypto.randomUUID(),
       date: new Date().toLocaleDateString("en-GB",{ day: "numeric", month: "short", year: "numeric" }),
       symptoms: allSymptoms,
