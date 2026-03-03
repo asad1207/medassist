@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Protected from "@/components/Protected";
 import { toast } from "@/components/Toast";
 import { useAuth } from "@/hooks/useAuth";
-import { fetchAppointments, createAppointment, updateAppointment,  from "@/hooks/useStorage";
+import { fetchAppointments, createAppointment, updateAppointment } from "@/hooks/useStorage";
 
 const SPECIALTIES = ["General Physician","Cardiologist","Neurologist","Orthopedic","Dermatologist","ENT Specialist","Pulmonologist","Gastroenterologist","Endocrinologist","Psychiatrist"];
 const DOCTORS = {
