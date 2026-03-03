@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Protected from "@/components/Protected";
 import { toast } from "@/components/Toast";
 import { useAuth } from "@/hooks/useAuth";
-import { getAppointments, saveAppointment, updateAppointmentStatus, AppointmentEntry } from "@/hooks/useStorage";
+import { fetchAppointments, createAppointment, updateAppointment,  from "@/hooks/useStorage";
 
 const SPECIALTIES = ["General Physician","Cardiologist","Neurologist","Orthopedic","Dermatologist","ENT Specialist","Pulmonologist","Gastroenterologist","Endocrinologist","Psychiatrist"];
 const DOCTORS = {
@@ -26,7 +26,7 @@ export default function AppointmentsPage() {
   const [notes, setNotes] = useState("");
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
 
-  const load = () => { if (user) setAppointments(getAppointments(user.id)); };
+  const load = () => { if (user) setAppointments(fetchAppointments(user.id)); };
   useEffect(() => { load(); }, [user]);
 
   const book = () => {
@@ -37,7 +37,7 @@ export default function AppointmentsPage() {
       specialty, date, time, notes,
       status: "scheduled",
     };
-    saveAppointment(user!.id, entry);
+    createAppointment(user!.id, entry);
     setBookedSlots(p => [...p, time]);
     load();
     setShowForm(false);
@@ -45,8 +45,8 @@ export default function AppointmentsPage() {
     toast("✅ Appointment booked!");
   };
 
-  const cancel = (id: string) => { updateAppointmentStatus(user!.id, id, "cancelled"); load(); toast("🗑️ Appointment cancelled"); };
-  const complete = (id: string) => { updateAppointmentStatus(user!.id, id, "completed"); load(); toast("✅ Marked as completed"); };
+  const cancel = (id: string) => { updateAppointment(user!.id, id, "cancelled"); load(); toast("🗑️ Appointment cancelled"); };
+  const complete = (id: string) => { updateAppointment(user!.id, id, "completed"); load(); toast("✅ Marked as completed"); };
 
   const statusColor = (s: AppointmentEntry["status"]) => s === "scheduled" ? "bt" : s === "completed" ? "bg" : "ba";
   const docs = (DOCTORS as any)[specialty] || [];

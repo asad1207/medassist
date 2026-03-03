@@ -19,7 +19,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!user) return;
-    const hist = getHistory(user.id);
+    const hist = fetchHistory(user.id);
     setStats({
       total: hist.length,
       mild: hist.filter(h => h.risk === "mild").length,

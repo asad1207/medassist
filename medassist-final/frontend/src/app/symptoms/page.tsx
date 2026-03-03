@@ -52,7 +52,7 @@ export default function SymptomsPage() {
 
   const saveHist = () => {
     if (!user || !result) return;
-    saveHistoryEntry(user.id, {
+    // saveHistoryEntry(user.id, {
       id: crypto.randomUUID(),
       date: new Date().toLocaleDateString("en-GB",{ day: "numeric", month: "short", year: "numeric" }),
       symptoms: allSymptoms,

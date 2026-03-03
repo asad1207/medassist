@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Protected from "@/components/Protected";
 import { useAuth } from "@/hooks/useAuth";
-import { getHistory, HistoryEntry } from "@/hooks/useStorage";
+import { fetchHistory, HistoryEntry } from "@/hooks/useStorage";
 
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
@@ -12,7 +12,7 @@ export default function HistoryPage() {
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
-    if (user) setHistory(getHistory(user.id));
+    if (user) setHistory(fetchHistory(user.id));
   }, [user]);
 
   const filtered = filter === "all" ? history : history.filter(h => h.risk === filter);
