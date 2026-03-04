@@ -34,7 +34,7 @@ export async function createAppointment(token: string, data: any) {
   return res.json();
 }
 
-export async function updateAppointment(token: string, id: number, data: any) {
+export async function updateAppointment(token: string, id: string, data: any) {
   const res = await fetch(`${API}/api/appointments/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
