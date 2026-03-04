@@ -14,13 +14,13 @@ const SPECIALTIES = [
 export default function AppointmentsPage() {
   const { token } = useAuth();
   const [appointments, setAppointments] = useState<any[]>([]);
-  const [showForm, setShowForm]         = useState(false);
-  const [specialty, setSpecialty]       = useState(SPECIALTIES[0]);
-  const [doctor, setDoctor]             = useState("");
-  const [date, setDate]                 = useState("");
-  const [time, setTime]                 = useState("09:00");
-  const [notes, setNotes]               = useState("");
-  const [loading, setLoading]           = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [specialty, setSpecialty] = useState(SPECIALTIES[0]);
+  const [doctor, setDoctor] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("09:00");
+  const [notes, setNotes] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (token) fetchAppointments(token).then(setAppointments);
@@ -31,7 +31,6 @@ export default function AppointmentsPage() {
     if (!token) return;
     setLoading(true);
     try {
-      // Backend expects: doctor_name, specialty, appointment_date (ISO string), notes
       const appointment_date = new Date(`${date}T${time}:00`).toISOString();
       const newAppt = await createAppointment(token, {
         doctor_name: doctor || "TBD",
@@ -71,12 +70,6 @@ export default function AppointmentsPage() {
     } catch { return iso; }
   };
 
-  const statusColor = (s: string) => ({
-    scheduled:  { bg: "rgba(13,148,136,.12)",  color: "#0d9488" },
-    completed:  { bg: "rgba(16,185,129,.12)",  color: "#10b981" },
-    cancelled:  { bg: "rgba(239,68,68,.12)",   color: "#ef4444" },
-  }[s] || { bg: "rgba(13,148,136,.12)", color: "#0d9488" });
-
   const inp: React.CSSProperties = {
     width: "100%", padding: "10px 14px", borderRadius: 10,
     border: "1.5px solid rgba(13,148,136,.22)", fontSize: ".9rem",
@@ -86,126 +79,107 @@ export default function AppointmentsPage() {
 
   return (
     <Protected>
-      <div style={{ minHeight: "100vh", background: "var(--bg, #f0fdfa)", padding: "32px 24px", maxWidth: 760, margin: "0 auto" }}>
-
-        {/* Header */}
+      <div style={{ minHeight: "100vh", background: "#f0fdfa", padding: "32px 24px", maxWidth: 760, margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 28 }}>
           <div>
             <h1 style={{ fontSize: "1.7rem", fontWeight: 700, color: "#134e4a", margin: 0 }}>Appointments</h1>
             <p style={{ color: "#6b9e99", fontSize: ".88rem", margin: "4px 0 0" }}>Manage your doctor visits</p>
           </div>
-          <button
-            onClick={() => setShowForm(f => !f)}
-            style={{
-              padding: "10px 20px", background: "linear-gradient(135deg,#14b8a6,#0f766e)",
-              border: "none", borderRadius: 10, color: "#fff",
-              fontWeight: 600, cursor: "pointer", fontSize: ".88rem", fontFamily: "inherit",
-            }}
-          >
+          <button onClick={() => setShowForm(f => !f)} style={{
+            padding: "10px 20px", background: "linear-gradient(135deg,#14b8a6,#0f766e)",
+            border: "none", borderRadius: 10, color: "#fff",
+            fontWeight: 600, cursor: "pointer", fontSize: ".88rem", fontFamily: "inherit",
+          }}>
             {showForm ? "âœ• Cancel" : "+ Book Appointment"}
           </button>
         </div>
 
-        {/* Booking Form */}
         {showForm && (
           <div style={{
-            background: "#fff", borderRadius: 16, padding: "24px",
-            marginBottom: 28, boxShadow: "0 4px 20px rgba(13,148,136,.1)",
-            border: "1px solid rgba(13,148,136,.15)",
+            background: "#fff", borderRadius: 16, padding: "24px", marginBottom: 28,
+            boxShadow: "0 4px 20px rgba(13,148,136,.1)", border: "1px solid rgba(13,148,136,.15)",
           }}>
-            <h2 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#134e4a", marginBottom: 18, marginTop: 0 }}>
-              New Appointment
-            </h2>
+            <h2 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#134e4a", marginBottom: 18, marginTop: 0 }}>New Appointment</h2>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
               <div style={{ gridColumn: "1/-1" }}>
-                <label style={{ display: "block", fontSize: ".72rem", fontWeight: 600, color: "#6b9e99", letterSpacing: ".06em", textTransform: "uppercase", marginBottom: 5 }}>SPECIALTY</label>
+                <label style={{ display: "block", fontSize: ".72rem", fontWeight: 600, color: "#6b9e99", letterSpacing: ".06em", textTransform: "uppercase" as const, marginBottom: 5 }}>SPECIALTY</label>
                 <select value={specialty} onChange={e => setSpecialty(e.target.value)} style={inp}>
                   {SPECIALTIES.map(s => <option key={s}>{s}</option>)}
                 </select>
               </div>
               <div style={{ gridColumn: "1/-1" }}>
-                <label style={{ display: "block", fontSize: ".72rem", fontWeight: 600, color: "#6b9e99", letterSpacing: ".06em", textTransform: "uppercase", marginBottom: 5 }}>DOCTOR NAME (OPTIONAL)</label>
+                <label style={{ display: "block", fontSize: ".72rem", fontWeight: 600, color: "#6b9e99", letterSpacing: ".06em", textTransform: "uppercase" as const, marginBottom: 5 }}>DOCTOR NAME (OPTIONAL)</label>
                 <input value={doctor} onChange={e => setDoctor(e.target.value)} placeholder="Dr. Smith" style={inp} />
               </div>
               <div>
-                <label style={{ display: "block", fontSize: ".72rem", fontWeight: 600, color: "#6b9e99", letterSpacing: ".06em", textTransform: "uppercase", marginBottom: 5 }}>DATE</label>
+                <label style={{ display: "block", fontSize: ".72rem", fontWeight: 600, color: "#6b9e99", letterSpacing: ".06em", textTransform: "uppercase" as const, marginBottom: 5 }}>DATE</label>
                 <input type="date" value={date} onChange={e => setDate(e.target.value)} style={inp} />
               </div>
               <div>
-                <label style={{ display: "block", fontSize: ".72rem", fontWeight: 600, color: "#6b9e99", letterSpacing: ".06em", textTransform: "uppercase", marginBottom: 5 }}>TIME</label>
+                <label style={{ display: "block", fontSize: ".72rem", fontWeight: 600, color: "#6b9e99", letterSpacing: ".06em", textTransform: "uppercase" as const, marginBottom: 5 }}>TIME</label>
                 <input type="time" value={time} onChange={e => setTime(e.target.value)} style={inp} />
               </div>
               <div style={{ gridColumn: "1/-1" }}>
-                <label style={{ display: "block", fontSize: ".72rem", fontWeight: 600, color: "#6b9e99", letterSpacing: ".06em", textTransform: "uppercase", marginBottom: 5 }}>NOTES (OPTIONAL)</label>
-                <textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Reason for visit, symptomsâ€¦" rows={3} style={{ ...inp, resize: "none" }} />
+                <label style={{ display: "block", fontSize: ".72rem", fontWeight: 600, color: "#6b9e99", letterSpacing: ".06em", textTransform: "uppercase" as const, marginBottom: 5 }}>NOTES (OPTIONAL)</label>
+                <textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Reason for visit..." rows={3} style={{ ...inp, resize: "none" }} />
               </div>
             </div>
-            <button
-              onClick={book} disabled={loading || !date}
-              style={{
-                marginTop: 18, width: "100%", padding: 13,
-                background: "linear-gradient(135deg,#14b8a6,#0f766e)",
-                border: "none", borderRadius: 11, color: "#fff",
-                fontWeight: 600, fontSize: ".95rem", cursor: "pointer",
-                opacity: (loading || !date) ? .6 : 1, fontFamily: "inherit",
-              }}
-            >
+            <button onClick={book} disabled={loading || !date} style={{
+              marginTop: 18, width: "100%", padding: 13,
+              background: "linear-gradient(135deg,#14b8a6,#0f766e)",
+              border: "none", borderRadius: 11, color: "#fff",
+              fontWeight: 600, fontSize: ".95rem", cursor: "pointer",
+              opacity: (loading || !date) ? .6 : 1, fontFamily: "inherit",
+            }}>
               {loading ? "Bookingâ€¦" : "Confirm Appointment â†’"}
             </button>
           </div>
         )}
 
-        {/* Appointments List */}
         {appointments.length === 0 ? (
           <div style={{ textAlign: "center", padding: "60px 20px", color: "#6b9e99" }}>
-            <div style={{ fontSize: "2.5rem", marginBottom: 12 }}>ðŸ“…</div>
+            <div style={{ fontSize: "2.5rem", marginBottom: 12 }}>í³…</div>
             <p style={{ fontWeight: 600, color: "#134e4a" }}>No appointments yet</p>
             <p style={{ fontSize: ".88rem" }}>Click "Book Appointment" above to schedule one</p>
           </div>
-        ) : appointments.map((a: any) => {
-          const sc = statusColor(a.status);
-          return (
-            <div key={a.id} style={{
-              background: "#fff", borderRadius: 14, padding: "18px 20px",
-              marginBottom: 12, display: "flex", justifyContent: "space-between",
-              alignItems: "center", boxShadow: "0 2px 12px rgba(13,148,136,.07)",
-              border: "1px solid rgba(13,148,136,.1)",
-            }}>
-              <div>
-                <div style={{ fontWeight: 700, color: "#134e4a", fontSize: ".98rem" }}>
-                  {a.specialty || "General"}
-                  {(a.doctor_name || a.doctor) && (
-                    <span style={{ fontWeight: 400, color: "#6b9e99" }}> â€” {a.doctor_name || a.doctor}</span>
-                  )}
-                </div>
-                <div style={{ color: "#6b9e99", fontSize: ".85rem", marginTop: 4 }}>
-                  ðŸ“… {formatDate(a.appointment_date || a.date)}
-                </div>
-                {a.notes && <div style={{ color: "#4b7a75", fontSize: ".82rem", marginTop: 4, fontStyle: "italic" }}>{a.notes}</div>}
-              </div>
-              <div style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
-                <span style={{
-                  padding: "4px 12px", borderRadius: 20, fontSize: ".78rem",
-                  fontWeight: 600, background: sc.bg, color: sc.color,
-                }}>
-                  {a.status || "scheduled"}
-                </span>
-                {(a.status === "scheduled" || a.status === "upcoming" || !a.status) && (
-                  <button
-                    onClick={() => cancel(a.id)}
-                    style={{
-                      padding: "4px 12px", borderRadius: 8, fontSize: ".78rem",
-                      background: "rgba(239,68,68,.1)", color: "#ef4444",
-                      border: "none", cursor: "pointer", fontFamily: "inherit",
-                    }}
-                  >
-                    Cancel
-                  </button>
+        ) : appointments.map((a: any) => (
+          <div key={a.id} style={{
+            background: "#fff", borderRadius: 14, padding: "18px 20px", marginBottom: 12,
+            display: "flex", justifyContent: "space-between", alignItems: "center",
+            boxShadow: "0 2px 12px rgba(13,148,136,.07)", border: "1px solid rgba(13,148,136,.1)",
+          }}>
+            <div>
+              <div style={{ fontWeight: 700, color: "#134e4a", fontSize: ".98rem" }}>
+                {a.specialty || "General"}
+                {(a.doctor_name || a.doctor) && (
+                  <span style={{ fontWeight: 400, color: "#6b9e99" }}> â€” {a.doctor_name || a.doctor}</span>
                 )}
               </div>
+              <div style={{ color: "#6b9e99", fontSize: ".85rem", marginTop: 4 }}>
+                í³… {formatDate(a.appointment_date || a.date)}
+              </div>
+              {a.notes && <div style={{ color: "#4b7a75", fontSize: ".82rem", marginTop: 4, fontStyle: "italic" }}>{a.notes}</div>}
             </div>
-          );
-        })}
+            <div style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
+              <span style={{
+                padding: "4px 12px", borderRadius: 20, fontSize: ".78rem", fontWeight: 600,
+                background: a.status === "cancelled" ? "rgba(239,68,68,.12)" : "rgba(13,148,136,.12)",
+                color: a.status === "cancelled" ? "#ef4444" : "#0d9488",
+              }}>
+                {a.status || "scheduled"}
+              </span>
+              {(a.status === "scheduled" || a.status === "upcoming" || !a.status) && (
+                <button onClick={() => cancel(a.id)} style={{
+                  padding: "4px 12px", borderRadius: 8, fontSize: ".78rem",
+                  background: "rgba(239,68,68,.1)", color: "#ef4444",
+                  border: "none", cursor: "pointer", fontFamily: "inherit",
+                }}>
+                  Cancel
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </Protected>
   );
